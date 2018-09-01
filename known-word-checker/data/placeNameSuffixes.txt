@@ -1,0 +1,45 @@
+Municipality 行政
+	Prefecture   都, 道, 府, 県
+	City   市
+	Town   町
+	Village   村
+Populated area 居住地
+Mountain  山
+	Mountain, Hill      山, 岳, 嶽, 峰, 森, 嶺
+Pass   峠
+Cape  岬
+	Cape   岬, 崎, 埼, 鼻
+	Beach   浜
+River  川
+	River, Stream   川
+	Irrigation channel   用水路
+Lake  湖沼
+	Lake   湖, 浦, 潟
+	Marsh, Swamp   沼
+	Pond   池
+Sea Area  海域
+	Sea   外海, 灘
+	Bay   湾
+	Strait, Channel   海峡, 水道
+Undersea feature   海底地形
+	Ridge   海嶺
+	Seamount   海山
+    Seamounts   海山群
+    Plateau   海台
+    Trench   海溝
+    Trough   舟状海盆
+    Basin   海盆
+    Canyon   海底谷
+    Bank   堆
+    Terrace   平坦面
+    Gap   海裂
+    Seachannel   長谷
+Island 島
+Island, Islet   島
+	Rock   岩, 瀬
+Extensive natural feature  Mountains   広域自然
+	Mountains 山地, 山脈
+	Plain   平野
+	Peninsula   半島
+	Upland   台地, 高原, 丘陵
+	Islands, Islets   諸島, 群島, 列島

@@ -1,0 +1,164 @@
+body, html {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 102%;
+	background-color: #fcfcfc;
+	color: #221e22;
+	height: 100%;
+	width: 100%;
+}
+h1, h2, h3 {
+	margin: 0;
+}
+img {
+  max-width: 100%;
+}
+a {
+	color: #45659B;
+}
+ul {
+	margin: 5px 0;
+}
+li {
+	padding: 4px;
+}
+input[type=text], textarea {
+	margin: 2px;
+	padding: 2px;
+	border: 1px #9E9E9E solid;
+}
+button {
+	cursor: pointer;
+	border: 1px #9E9E9E solid;
+	padding: 5px;
+	background-color: white;
+	width: 99%;
+}
+button:hover {
+	background-color: #F9F9F9;
+}
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+.main {
+	flex: 1;
+}
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	width: 100%;
+	flex-grow: 1;
+}
+h1 {
+	font-size: 1.85em;
+}
+header {
+	background-color: #343A40;
+	color: white;
+	padding: 12px;
+}
+#infobox {
+	margin-top: 0.5em;
+	margin-bottom: -0.5em;
+	padding: 2px 20px;
+	max-width: 720px;
+}
+.form-display > .innerContainer {
+	border: 1px #e5e5e5 solid;
+	background-color: #F0F0F0;
+	padding: 10px;
+}
+.innerContainer {
+	margin: 0 2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+@media only screen and (min-width: 1000px) {
+	.innerContainer {
+		width: 980px;
+		max-width: 980px;
+	}
+}
+.center {
+	text-align: center!important
+}
+p {
+	margin: 0.5em;
+}
+#isFileSaved {
+	display: block;
+	font-weight: bold;
+}
+#fileInput {
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 250px;
+}
+#comparisonTextInput {
+	width: 99%;
+	min-height: 25px;
+	height: 18.5vh;
+}
+#resultDisplay {
+	display: none;
+}
+.result-display {
+	transition: background-color 0.5s cubic-bezier(1, 1, 1, 1);
+	transition-delay: 0s;
+}
+#resultNumbers {
+	font-size: 30px;
+	font-weight: bold;
+}
+textarea, #newWordsDisplay {
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+#newWordsDisplay {
+	display: none;
+}
+#newWordsHtmlWrap {
+	display: block;
+}
+#newWordsTextWrap {
+	display: none;
+	text-align: left !important;
+}
+.newWordsHtml {
+	display: block;
+	font-size: 20px;
+	white-space: pre-line;
+}
+.newWord {
+	display: inline-block;
+	margin: 6px 2px;
+	padding: 4px;
+	background-color: #F0F0F0;
+	border: 1px #e5e5e5 solid;
+}
+#newWordsTextarea1 {
+	width: 100%;
+	height: 50px;
+	white-space: nowrap;
+}
+#newWordsTextarea2 {
+	width: 100%;
+	min-height: 175px;
+	height: 350px;
+}
+#toggleNewWordsViewBtn {
+	display: block;
+	position: relative;
+	bottom: 0;
+}
+footer {
+	margin-top: 0.5em;
+	background-color: #E9ECEF;
+	padding: 6px;
+}

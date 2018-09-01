@@ -1,0 +1,138 @@
+html {
+	color: #343A40;
+}
+html, body {
+	margin: 0;
+	height: 100%;
+	background: #fff;
+	font-size: 18.5px;
+	line-height: 30px;
+}
+.site {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.site-content {
+	flex: 1;
+	padding: 20px;
+}
+a:active,
+a:link,
+a:visited {
+	color: #47648B;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline
+}
+
+.header {
+	color: white;
+	background-color: #343A40;
+	padding: 15px;
+	text-align: center;
+}
+
+#languageMenu {
+	float: right;
+}
+
+.clozetitle,
+.clozeTestOptions {
+	font-family: Verdana, Geneva, sans-serif;
+}
+.clozetitle {
+	letter-spacing: 6px;
+	font-size: 25px;
+}
+.clozeTestOptions {
+	padding-bottom: 5px;
+	display: block
+}
+
+textarea {
+	border: 0;
+}
+textarea, input {
+	font-size: 16px;
+}
+.answerField {
+	display: inline;
+	background-color: #E9ECEF;
+	box-shadow: none;
+	color: #343A40;
+	resize: none;
+	font-family: Meiryo-UI;
+	border: 1px solid #343A40;
+	padding: 1px;
+	margin: 0 5px -4px;
+	min-height: 20px;
+	max-height: 20px;
+	max-width: 125px;
+}
+@-moz-document url-prefix() {
+	.answerField {
+		margin: 0 5px 4px;
+		max-height: 22px
+	}
+}
+
+.btnbg,
+.btn {
+	font-family: Verdana, Geneva, sans-serif
+}
+.btn {
+	text-transform: none;
+	box-shadow: none;
+	line-height: 1;
+	cursor: pointer;
+	color: #fff;
+	border: 2px solid #47648B;
+	font-size: 20px;
+	padding: 5px
+}
+.btnbg {
+	background-color: #E9ECEF;
+	padding: 10px;
+	bottom: 0;
+	display: block
+}
+.btn,
+.btn:hover {
+	background: #47648B;
+	text-decoration: none
+}
+#clozeTextSubmitBtn, #clozeCheckAnswersBtn {
+	width: 100%;
+}
+#clozeCheckAnswersBtn {
+	display: none;
+}
+
+.clozeTestOutputArea {
+	padding: 5px;
+	margin: 5px;
+	line-height: 2;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: normal;
+}
+.clozeTestDifficultyDrpdwn {
+	background: #fff;
+	color: #000;
+	width: auto;
+	height: auto;
+	padding: 0;
+	font-size: 14px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+}
+footer {
+	background-color: #E9ECEF;
+}

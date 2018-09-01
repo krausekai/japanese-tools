@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+	MIT License
+	Copyright (c) 2018 Kai Krause <kaikrause95@gmail.com>
+	See license here: https://github.com/krausekai/Japanese-Known-Word-Checker/blob/master/LICENSE.txt
+-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--SEO-->
+		<title>Japanese Known Word Checker</title>
+		<meta name="description" content="Determine the readability of a Japanese text by providing a list of words you know, and create a list of unknown words. Save time by reading level appropriate texts." />
+		<!-- Open Graph data -->
+		<meta property="og:title" content="Japanese Known Word Checker" />
+		<meta property="og:description" content="Determine the readability of a Japanese text by providing a list of words you know, and create a list of unknown words. Save time by reading level appropriate texts." />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale:alternate" content="ja_JP" />
+		<meta property="og:site_name" content="Kai Krause">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113504604-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-113504604-1', { 'anonymize_ip': true });
+		</script>
+		<!--/SEO-->
+		<link rel="stylesheet" href="w3.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<div class="main">
+			<header class="container center">
+				<h1>Japanese Known Word Checker</h1>
+			</header>
+
+			<div class="container center">
+				<span id="infobox">Determine the readability of Japanese texts. <a href="about.html">Learn More →</a></span>
+			</div>
+
+			<!-- form -->
+			<div class="container center form-display">
+				<div id="formDisplay" class="innerContainer">
+					<span id="isFileSaved"></span>
+					Select a file of known words, one word per line (txt, csv): <input type="file" id="fileInput"><br />
+					Delimiter: <input type="text" id="delimiterField" value="\t">
+					Column: <input type="text" id="columnField" value="0">
+					Remember Settings: <input type="checkbox" id="rememberSettingsCheck"><br />
+					<textarea id="comparisonTextInput" placeholder="Enter a Japanese Text"></textarea><br />
+					<button id="compareBtn">Check</button>
+				</div>
+			</div>
+
+			<!-- result -->
+			<div class="container center result-display">
+				<div id="resultDisplay" class="innerContainer">
+					<h1>Number of Words You Should Recognize*</h1>
+					<span id="warning">*Words may not match 100%. This program uses <a href="https://en.wikipedia.org/wiki/Approximate_string_matching" target="_blank">Fuzzy Matching</a> and <a href="http://chasen.org/~taku/software/TinySegmenter/" target="_blank">TinySegmenter</a>.</span><br />
+					<p id="resultNumbers">
+						<span id="resultPercent"></span><br />
+						<span id="resultFraction"></span><br />
+					</p>
+				</div>
+			</div>
+
+			<!-- new words result -->
+			<div class="container center nwords-display">
+				<div id="newWordsDisplay" class="innerContainer">
+					<h1 class="newWordsTitle">Possible New Words</h1>
+					<button id="toggleNewWordsViewBtn">Toggle View</button>
+					<div id="newWordsHtmlWrap">
+						<span id="newWordsHtml"></span>
+					</div>
+					<div id="newWordsTextWrap">
+						New Words Separated by Space
+						<textarea id="newWordsTextarea1"></textarea>
+						New Words Separated by New Line
+						<textarea id="newWordsTextarea2"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<center>
+				<a href="https://github.com/krausekai">© 2018 Kai Krause</a> | <a href="https://github.com/krausekai/Japanese-Text-Difficulty-Checker/issues">Report an issue</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kaikrause95%40gmail%2ecom&lc=AU&item_name=Kai%20Krause%20%28krausekai%2fkainokage%29&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Donate via Paypal</a>
+			</center>
+		</footer>
+
+		<script src="tiny_segmenter-0.2.js"></script>
+		<script src="fuzzyMatchWords.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>

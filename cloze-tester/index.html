@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!--SEO-->
+		<title>JAPANESE CLOZE TEST</title>
+		<meta name="description" content="Test Japanese reading comprehension for free!" />
+		<!-- Open Graph data -->
+		<meta property="og:title" content="JAPANESE CLOZE TEST" />
+		<meta property="og:description" content="Test Japanese reading comprehension for free!" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale:alternate" content="ja_JP" />
+		<meta property="og:site_name" content="Kai Krause">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113504604-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-113504604-1', { 'anonymize_ip': true });
+		</script>
+		<!--/SEO-->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="RakutenMA/rakutenma.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="RakutenMA/model_ja.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="RakutenMA/hanzenkaku.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="UTF-8">
+			function segment(text) {
+				var rma = new RakutenMA(model_ja);
+				rma.featset = RakutenMA.default_featset_ja;
+				rma.hash_func = RakutenMA.create_hash_func(15);
+				var tokens = rma.tokenize(HanZenKaku.hs2fs(HanZenKaku.hw2fw(HanZenKaku.h2z(text))));
+				//console.log(RakutenMA.tokens2string(tokens));
+				return tokens;
+			}
+		</script>
+	</head>
+
+	<body class="site">
+
+		<header class="header">
+			<span class="clozetitle">JAPANESE CLOZE TEST</span>
+			<select id="languageMenu">
+				<option value="en" selected>English</option>
+				<option value="ja">日本語</option>
+			</select>
+		</header>
+
+		<main class="site-content">
+
+			<noscript>
+				<center><p>This page requires Javascript to function. <a href="https://www.enable-javascript.com/en/" target="_blank">Learn more</a></p></center>
+			</noscript>
+
+			<div class="btnbg">
+				<div id="inputForm">
+					<div id="clozeTestOptions" class="clozeTestOptions">
+						Difficulty: Which words will be removed?<br />
+							<label><input type="radio" value="nWords" name="options" checked> Every
+							<select id="clozeTestDifficultyDrpdwn" class="clozeTestDifficultyDrpdwn">
+								<option> </option>
+								<option value="1">1</option>
+								<option value="2">2nd</option>
+								<option value="3">3rd</option>
+								<option value="4">4th</option>
+								<option value="5">5th</option>
+								<option value="6">6th</option>
+								<option value="7">7th</option>
+								<option value="8">8th</option>
+								<option value="9">9th</option>
+								<option value="10">10th</option>
+							</select>
+							word (but not grammar particles)</label>, or: <br />
+						<label><input type="checkbox" value="nouns" name="options"> Nouns</label><br />
+						<label><input type="checkbox" value="adjectives" name="options"> Adjectives</label><br />
+						<label><input type="checkbox" value="verbs" name="options"> Verbs</label><br />
+					</div>
+					<textarea id="clozeTextField" style="width:100%" rows="4" placeholder="Enter Japanese text here..."></textarea>
+					<button id="clozeTextSubmitBtn" class="btn" type="button">Start</button>
+				</div>
+				<button id="clozeCheckAnswersBtn" class="btn">Check Answers</button>
+			</div>
+
+			<p id="clozeTestOutputArea" class="clozeTestOutputArea">
+				<span id="clozeTestResultField"></span>
+			</p>
+		</main>
+
+		<footer>
+			<center>
+				<a href="krausekai.com">©2017 Kai Krause</a> | <a href="https://github.com/krausekai/japanese-cloze-tester/issues">Report an issue</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kaikrause95%40gmail%2ecom&lc=AU&item_name=Kai%20Krause%20%28krausekai%2fkainokage%29&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Donate via Paypal</a>
+			</center>
+		</footer>
+
+		<script type="text/javascript" src="cloze.js" charset="UTF-8"></script>
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--
+	MIT License
+	Copyright (c) 2018 Kai Krause <kaikrause95@gmail.com>
+	See license here: https://github.com/krausekai/Japanese-Text-Difficulty-Checker/blob/master/LICENSE.txt
+-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--SEO-->
+		<title>Japanese Known Word Checker</title>
+		<meta name="description" content="Determine the readability of a Japanese text by providing a list of words you know, and create a list of unknown words. Save time by reading level appropriate texts." />
+		<!-- Open Graph data -->
+		<meta property="og:title" content="Japanese Known Word Checker" />
+		<meta property="og:description" content="Determine the readability of a Japanese text by providing a list of words you know, and create a list of unknown words. Save time by reading level appropriate texts." />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale:alternate" content="ja_JP" />
+		<meta property="og:site_name" content="Kai Krause">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113504604-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-113504604-1', { 'anonymize_ip': true });
+		</script>
+		<!--/SEO-->
+		<link rel="stylesheet" href="w3.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<div class="main">
+			<header class="container center">
+				<h1>Japanese Known Word Checker: About</h1>
+			</header>
+
+			<div class="container">
+				<div class="innerContainer">
+					<center><span id="infobox"><a href="index.html">← Back to the Form</a></span></center>
+
+					<h3>Overview</h3>
+					<p>This program compares a list of words you know, and a text you wish to read, in order to calculate the readability of the text. Ease of readability is displayed as a percentage and as a score based on the number of known and unknown words. Words not matched will be listed as an Unknown Word.</p>
+
+					<p>A list of known words can be created using Microsoft Excel, LibreOffice Calc, Anki, or any program which generates a <a href="https://en.wikipedia.org/wiki/Delimiter-separated_values" target="_blank">text-delimited file</a>.</p>
+
+					<p>The text that you wish to read should be written in standard spelling, and not primarily or only in hiragana, in order for the program to recognize terminology.</p>
+
+					<p><b>Form and Options</b></p>
+					<ul>
+						<li>
+							<b>Known Words File</b>: Every word must be on a new line, and the file format should be a text format (eg. ending in .txt or .csv). The selected file and its data is not uploaded to the internet.
+						</li>
+						<li>
+							<b>Delimiter</b>: Used to find the list of words from the Known Words File. In a <a href="https://en.wikipedia.org/wiki/Delimiter-separated_values" target="_blank">text-delimited file</a>, texts are separated by a character. For example, "Word Definition" is separated by a space. In order to make the "Word" found by the program, the program needs to be told that the delimiter is a space in order to separate the texts into columns. If the delimiter is a tab, this can be written as "\t". If the text is not separated by a delimiter, then ignore this option.
+						</li>
+						<li>
+							<b>Column</b>: Used to find the list of words from the Known Words File. Once the text has been separated into columns by the delimiter, the program will use the column to find the list of words. Columns start at 0, and not from 1.
+						</li>
+						<li>
+							<b>Remember Settings</b>: By selecting this option, the Known Words File, Delimiter and Column will be saved to browser storage. These settings will be loaded the next time the page is opened from the same device. Settings are not saved online, and do not sync to other devices.
+						</li>
+					</ul>
+
+					<h3>How Matches Are Found</h3>
+
+					<p><b>1. Known Words File</b></p>
+
+					<p>Words are found according to the delimiter and column. Once selected, words are cleaned by removing punctuation and English characters, and for する verbs, the ending する/します is removed.</p>
+
+					<p><b>2. The Text</b></p>
+
+					<p>Common grammatical terms and separating terms (eg. だろう/でしょう, けれど, ことが(できる), (て)しまう, のです) are removed, and word boundaries are created around modifiers (prefixes, suffixes, counters), verbs, and major place names in order to identify words better. Then, the text is separated into words using <a href="http://chasen.org/~taku/software/TinySegmenter/" target="_blank">TinySegmenter</a>, and post-processed to combine remaining modifiers and verb auxillaries. Duplicate words are removed.</p>
+
+					<p><b>3. The Comparison</b></p>
+
+					<p>Non-Japanese words, single-character and two-character Hiragana terms (eg. grammar particles like は, が, のは, には) and verb auxillaries (eg. され(て), ます), words starting or ending in "ー" or "っ", and words that are blacklisted will be ignored. The internal blacklist contains grammatical terms and common words including verbs, pronouns, conjunctions, adverbs, counters and modifiers (eg. いる/ある/行く, 私/僕/俺, しかし/でも, なぜ/もっと/もう, 分/全/別/他).</p>
+
+					<p>Matches are made by checking for string and substring equality, by a method known as <a href="https://en.wikipedia.org/wiki/Approximate_string_matching" target="_blank">Fuzzy Matching</a>. In other words, accuracy is 'fuzzy'. This is necessary in order to quickly match terms which are slightly different, but are otherwise the same. For example, because the term 出る and 出ます are the same except for verb ending, it is not a 100% match but a 33% match. The matching algorithim recognizes this and will still match the two terms.</p>
+
+					<p><b>Matching Algorithim compares whether</b></p>
+					<ul>
+						<li>the longer word contains the shorter word as Kanji</li>
+						<li>the longer word contains the shorter word as Kana, and is 3 or more characters</li>
+						<li>both words are a verb compound (i.e. Kanji-Kana-Kanji), and the first 3 characters are the same</li>
+						<li>words which contain Kanji and Kana, that when Kana is removed, both (partially) contain the same Kanji (eg. other verbs and adjectives)</li>
+					</ul>
+
+					<p><b>Matching Accuracy</b>:</p>
+					<ul>
+						<li>Words which are one or two characters need to match 100%</li>
+						<li>Words which are three or more characters need to match 60% or more</li>
+					</ul>
+
+					<p><b>Troubleshooting</b></p>
+					<p>Open the console via F12 and type:</p>
+					<ul>
+						<li>"_debug = true" to display match results</li>
+						<li>"text" to display text delimitation</li>
+						<li>"segs" to display text segmentation</li>
+						<li>"banned" to display banned terms</li>
+					</ul>
+
+					<h3>Download and Use Offline</h3>
+					<p>This program can be downloaded and used offline, however, will not receive updates and improvements to the matching algorithim.</p>
+
+					<p>To download this program, <a href="index.html">go back to the form</a>, and use the keyboard combination <u>Ctrl+S</u> or use the menu buttons <u>File &gt; Save Page As...</u> to save the web page as <u>complete</u> or <u>archive</u>.</p>
+
+					<p>This process is explained below for major browsers:</p>
+					<ul>
+						<li><a href="https://support.mozilla.org/en-US/kb/how-save-web-page" target="_blank">Firefox</a></li>
+						<li><a href="https://support.google.com/chrome/answer/7343019" target="_blank">Chrome</a></li>
+						<li><a href="https://support.apple.com/kb/PH21473" target="_blank">Safari</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<center>
+				<a href="https://github.com/krausekai">© 2018 Kai Krause</a> | <a href="https://github.com/krausekai/Japanese-Text-Difficulty-Checker/issues">Report an issue</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kaikrause95%40gmail%2ecom&lc=AU&item_name=Kai%20Krause%20%28krausekai%2fkainokage%29&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Donate via Paypal</a>
+			</center>
+		</footer>
+	</body>
+</html>

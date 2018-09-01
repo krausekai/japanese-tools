@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!--SEO-->
+		<title>日本語用の空欄補充</title>
+		<meta name="description" content="日本語の読解力を無料でテスト！" />
+		<!-- Open Graph data -->
+		<meta property="og:title" content="日本語用の空欄補充" />
+		<meta property="og:description" content="日本語の読解力を無料でテスト！" />
+		<meta property="og:locale" content="ja_JP" />
+		<meta property="og:locale:alternate" content="en_US" />
+		<meta property="og:site_name" content="Kai Krause">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113504604-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-113504604-1', { 'anonymize_ip': true });
+		</script>
+		<!--/SEO-->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="RakutenMA/rakutenma.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="RakutenMA/model_ja.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="RakutenMA/hanzenkaku.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="UTF-8">
+			function segment(text) {
+				var rma = new RakutenMA(model_ja);
+				rma.featset = RakutenMA.default_featset_ja;
+				rma.hash_func = RakutenMA.create_hash_func(15);
+				var tokens = rma.tokenize(HanZenKaku.hs2fs(HanZenKaku.hw2fw(HanZenKaku.h2z(text))));
+				//console.log(RakutenMA.tokens2string(tokens));
+				return tokens;
+			}
+		</script>
+	</head>
+
+	<body class="site">
+
+		<header class="header">
+			<span class="clozetitle">日本語用の空欄補充</span>
+			<select id="languageMenu">
+				<option value="en">English</option>
+				<option value="ja" selected>日本語</option>
+			</select>
+		</header>
+
+		<main class="site-content">
+
+			<noscript>
+				<center><p>このサイトは機能するためにJavascriptが必要です。 <a href="https://www.enable-javascript.com/ja/" target="_blank">詳しくはこちら</a></p></center>
+			</noscript>
+
+			<div class="btnbg">
+				<div id="inputForm">
+					<div id="clozeTestOptions" class="clozeTestOptions">
+						困難度：どの単語を空欄にしょうか？<br />
+							<label><input type="radio" value="nWords" name="options" checked> それぞれの
+							<select id="clozeTestDifficultyDrpdwn" class="clozeTestDifficultyDrpdwn">
+								<option> </option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+							つの単語（文法点ではない）</label>、または<br />
+						<label><input type="checkbox" value="nouns" name="options"> 名詞</label><br />
+						<label><input type="checkbox" value="adjectives" name="options"> 形容詞</label><br />
+						<label><input type="checkbox" value="verbs" name="options"> 動詞</label><br />
+					</div>
+					<textarea id="clozeTextField" style="width:100%" rows="4" placeholder="日本語で入力"></textarea>
+					<button id="clozeTextSubmitBtn" class="btn" type="button">スタート</button>
+				</div>
+				<button id="clozeCheckAnswersBtn" class="btn">答えを確認</button>
+			</div>
+
+			<p id="clozeTestOutputArea" class="clozeTestOutputArea">
+				<span id="clozeTestResultField"></span>
+			</p>
+		</main>
+
+		<footer>
+			<center>
+				<a href="krausekai.com">©2017 Kai Krause</a> | <a href="https://github.com/krausekai/japanese-cloze-tester/issues">Githubで問題を報告</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kaikrause95%40gmail%2ecom&lc=AU&item_name=Kai%20Krause%20%28krausekai%2fkainokage%29&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Paypalでお寄付</a>
+			</center>
+		</footer>
+
+		<script type="text/javascript" src="cloze.js" charset="UTF-8"></script>
+	</body>
+</html>

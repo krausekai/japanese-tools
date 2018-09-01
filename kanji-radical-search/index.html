@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+	MIT License
+	Copyright (c) 2018 Kai Krause <kaikrause95@gmail.com>
+	See license here: https://github.com/krausekai/Japanese-Text-Difficulty-Checker/blob/master/LICENSE.txt
+-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--SEO-->
+		<title>Japanese Kanji Radical Search</title>
+		<meta name="description" content="" />
+		<!-- Open Graph data -->
+		<meta property="og:title" content="Japanese Kanji Radical Search" />
+		<meta property="og:description" content="" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale:alternate" content="ja_JP" />
+		<meta property="og:site_name" content="Kai Krause">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113504604-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-113504604-1', { 'anonymize_ip': true });
+		</script>
+		<!--/SEO-->
+		<link rel="stylesheet" href="w3.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<div class="main">
+			<header class="container center">
+				<h1>Japanese Kanji Radical Search</h1>
+			</header>
+
+			<div class="container center">
+				<span id="infobox">Find similar Kanji by component. Data from <a href="http://nihongo.monash.edu/kradinf.html">RADKFILE</a>, <a href="http://www.edrdg.org/kanjidic/kanjd2index.html">KANJIDIC2</a>, <a href="https://wanikani.com">Wanikani</a>, and <a href="https://github.com/Doublevil/Houhou-SRS">Houhou SRS</a>.</span>
+			</div>
+
+			<!-- form -->
+			<div class="container center form-display">
+				<div id="formDisplay" class="innerContainer">
+					<p>
+						Radical Set:
+						<select id="radicalSet">
+							<option value="kangxi">Kangxi</option>
+							<option value="wanikani">Wanikani</option>
+							<option value="houhou">Houhou</option>
+						</select>
+						Search a Kanji:
+						<input id="searchText" type="text" placeholder="" size="4">
+						<!--<button id="searchBtn">Search</button>-->
+						<button id="clearSelected">Clear Selected</button><br />
+					</p>
+					<div id="radicalGrid"><ul></ul></div>
+					<p><span id="radicalSelectedCount"></span> Radical(s) Selected & <span id="radicalMatchingCount"></span> Possible Combinations.</p>
+				</div>
+			</div>
+
+			<!-- new words result -->
+			<div class="container center">
+				<div id="resultDisplay" class="innerContainer">
+					<div class="newWordsWrap">
+						<div id="focusedKanji" class="newWordsWrapChild1"></div>
+						<div id="foundKanji" class="newWordsWrapChild2"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<center>
+				<a href="https://github.com/krausekai">© 2018 Kai Krause</a> | <a href="https://github.com/krausekai/Japanese-Text-Difficulty-Checker/issues">Report an issue</a> | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kaikrause95%40gmail%2ecom&lc=AU&item_name=Kai%20Krause%20%28krausekai%2fkainokage%29&currency_code=AUD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Donate via Paypal</a>
+			</center>
+		</footer>
+
+		<script src="data/radicals.js"></script>
+		<script src="data/kanjis.min.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>

@@ -1,0 +1,117 @@
+body, html {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 102%;
+	background-color: #2d3047;
+	color: #f5f5f5;
+	height: 100%;
+	width: 100%;
+}
+h1, h2, h3 {
+	margin: 0;
+}
+img {
+  max-width: 100%;
+}
+a {
+	color: #e8e9eb;
+}
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	/*
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+	*/
+}
+.main {
+	flex: 1;
+}
+.container {
+	display: flex;
+	flex-direction: column;
+	/*justify-content: center;*/ /* Center content within container bounds */
+	align-items: center;
+	align-content: center;
+	width: 100%;
+	flex-grow: 1;
+}
+/*
+.form-display {
+	flex-grow: 1;
+}
+.result-display {
+	flex-grow: 2;
+}
+.nwords-display {
+	flex-grow: 3;
+	max-height: 300px;
+}
+*/
+
+.innerContainer {
+	margin: 0 2em;
+	margin-top: 1em;
+	margin-bottom: 2em;
+}
+@media only screen and (min-width: 1000px) {
+	.innerContainer {
+		max-width: 750px;
+	}
+}
+.center {
+	text-align: center!important
+}
+#isFileSaved {
+	color: lightgreen;
+}
+#fileInput {
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 250px;
+}
+#comparisonTextInput {
+	width: 99%;
+	min-height: 25px;
+	height: 25vh;
+}
+#compareBtn {
+	width: 99%;
+	padding: 2px;
+}
+.result-display {
+	transition: background-color 0.5s cubic-bezier(1, 1, 1, 1);
+	transition-delay: 0s;
+	color: #2d3047;
+}
+.result-display a {
+	color: #2d3047;
+}
+#resultDisplay {
+	display: none;
+}
+#newWords {
+	font-size: 20px;
+}
+#resultNumbers {
+	font-size: 30px;
+	font-weight: bold;
+}
+#newWordsDisplay {
+	display: none;
+}
+#newWords {
+	white-space: pre-line;
+}
+header {
+	padding: 4px;
+}
+footer {
+	background-color: #202236;
+	padding: 4px;
+}
