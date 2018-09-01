@@ -1,0 +1,90 @@
+body, html {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 102%;
+	background-color: #fcfcfc;
+	color: #221e22;
+	height: 100%;
+	width: 100%;
+}
+h1, h2, h3 {
+	margin: 0;
+}
+img {
+  max-width: 100%;
+}
+a {
+	color: #45659B;
+}
+input[type=text], textarea {
+	margin: 2px;
+	padding: 2px;
+	border: 1px #9E9E9E solid;
+}
+button {
+	cursor: pointer;
+	border: 1px #9E9E9E solid;
+	background-color: white;
+}
+button:hover {
+	background-color: #F9F9F9;
+}
+#formDisplay button {
+	height: 30px;
+}
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+.main {
+	flex: 1;
+}
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	width: 100%;
+	flex-grow: 1;
+}
+h1 {
+	font-size: 1.85em;
+}
+header {
+	background-color: #343A40;
+	color: white;
+	padding: 12px;
+}
+#infobox {
+	margin-top: 0.5em;
+	margin-bottom: -0.5em;
+	padding: 2px 20px;
+	max-width: 780px;
+}
+.form-display > .innerContainer {
+	border: 1px #e5e5e5 solid;
+	background-color: #F0F0F0;
+}
+.innerContainer {
+	margin: 0 2em;
+	margin-top: 1em;
+}
+@media only screen and (min-width: 980px) {
+	.innerContainer {
+		width: 980px;
+		max-width: 980px;
+	}
+}
+.center {
+	text-align: center!important
+}
+p {
+	margin: 0.5em;
+}
+
+footer {
+	margin-top: 0.5em;
+	background-color: #E9ECEF;
+	padding: 6px;
+}
