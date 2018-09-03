@@ -338,10 +338,12 @@ async function processComparisonText() {
 				segs.splice(i+1, 1);
 			}
 			// RE-COMBINE auxillaries
-			if (kanji.test(segs[i]) && segs[i+1][0] === "ら") { // eg. 得られる
-				if (_debug) console.log("RE-COMBINE Auxillaries 1: " + segs[i] +" & " + segs[i+1]);
-				segs[i] += segs[i+1];
-				segs.splice(i+1, 1);
+			if (kanji.test(segs[i])) {
+				if (segs[i+1].startsWith("ら") || segs[i+1] === "がっ") { // eg. 得られる
+					if (_debug) console.log("RE-COMBINE Auxillaries 1: " + segs[i] +" & " + segs[i+1]);
+					segs[i] += segs[i+1];
+					segs.splice(i+1, 1);
+				}
 			}
 			if (segs[i].length > 1 && hiragana.test(segs[i][segs[i].length-1]) && hiragana.test(segs[i+1][0])) {
 				let prt = ["は", "が", "に", "を", "の", "な", "と", "や", "も", "へ", "お", "ご", "で", "よ", "ね"];
@@ -390,6 +392,7 @@ function testBanned(term) {
 	if (!res) {
 		let bannedAux = ["っ", "ッ", "ぇ"];
 		if (term.length <= 2 && !kanji.test(term) && !katakana.test(term) && hiragana.test(term)
+			|| term.length === 1 && katakana.test(term)
 			|| jpStopWords.indexOf(term) > -1
 			|| !term.includes("々") && punctuation.test(term)
 			|| !jaTest.test(term)
