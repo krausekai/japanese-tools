@@ -182,13 +182,16 @@ ul {
 	list-style: none;
 	display: inline-block;
 	vertical-align: top;
-	margin: 1px;
+	margin: 2px;
 	background-color: #fcfcfc;
 	justify-content: center;
 	text-align: center;
 	align-items: center;
-	width: 50px;
-	height: 40px;
+	width: 45px;
+	height: 34px;
+}
+#focusedKanji .radical {
+	font-size: 24px;
 }
 #focusedKanji {
 	height: 350px;
@@ -199,9 +202,9 @@ ul {
 }
 #focusedKanji br {
 	display: block;
-	margin: 5px;
-	padding: 5px;
-	line-height: 5px;
+	margin: 3px;
+	padding: 3px;
+	line-height: 3px;
 }
 
 footer {
