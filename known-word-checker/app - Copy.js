@@ -203,7 +203,7 @@ var termsToReplace = /または|又は|ことを|のを|を|とき|くらい|ぐ
 //あまり|あんまり|もっと|いっぱい|たくさん|とても|かなり|もちろん|つもり
 var termsToReplaceRegex = new RegExp(termsToReplace, "g");
 var alphaRegex = new RegExp(/[a-zA-Z]+/, "g");
-var numberRegex = new RegExp(/([０-９]|\d)(.+|)(秒|分|時|日|週|月|年)(間|)/, "g");
+var numberRegex = new RegExp(/(\d+)/, "g");
 var newLineRegex = new RegExp(/\n+/, "g");
 var katakanaRegex = new RegExp(/([\u30a0-\u30ff])(い|る)/, "g");
 var honKanjiRegex = new RegExp(/((お|ご)[\u4e00-\u9faf\u3400-\u4dbf])/, "g"); // お/ご+Kanji unicode
@@ -212,7 +212,7 @@ var verbKuSaBeforeNRegex = new RegExp(/([\u4e00-\u9faf\u3400-\u4dbf])([\u3040-\u
 var verbTeRegex = new RegExp(/(む|く|ぐ|る|す|つ|ぬ|ぶ)(って|っと)/, "g"); // る+って
 var verbTeFormRegex = new RegExp(/(って|んで|っと)/, "g"); // te form verbs
 var verbAuxRegex = new RegExp(/(くありません|いましょう|きましょう|ぎましょう|しましょう|ちましょう|にましょう|びましょう|みましょう|りましょう|いじゃう|いすぎる|いちゃう|いなさい|いました|いません|かったら|かったり|きすぎる|ぎすぎる|きちゃう|きなさい|ぎなさい|きました|ぎました|きません|ぎません|こさせる|こられる|しすぎる|しちゃう|しなさい|しました|しません|ちすぎる|ちなさい|ちました|ちません|っちゃう|にすぎる|になさい|にました|にません|びすぎる|びなさい|びました|びません|ましょう|みすぎる|みなさい|みました|みません|りすぎる|りなさい|りました|りません|んじゃう|いそう|いたい|いたら|いだら|いたり|いだり|います|かせる|がせる|かった|かない|がない|かれる|がれる|きそう|ぎそう|きたい|ぎたい|きたら|きたり|きます|ぎます|くない|ければ|こない|こよう|これる|させる|さない|される|しそう|したい|したら|したり|しない|します|しよう|すぎる|たせる|たない|たれる|ちそう|ちたい|ちます|ちゃう|ったら|ったり|なさい|なせる|なない|なれる|にそう|にたい|にます|ばせる|ばない|ばれる|びそう|びたい|びます|ました|ませる|ません|まない|まれる|みそう|みたい|みます|らせる|らない|られる|りそう|りたい|ります|わせる|わない|われる|んだら|んだり|いた|いだ|いて|いで|えば|える|おう|かず|がず|きた|きて|くて|けば|げば|ける|げる|こい|こう|ごう|こず|さず|した|して|しろ|せず|せば|せよ|せる|そう|たい|たず|たら|たり|った|って|てば|てる|とう|ない|なず|ねば|ねる|のう|ばず|べば|べる|ぼう|ます|まず|めば|める|ても|よう|らず|れば|れる|ろう|わず|んだ|んで|くる|する|いる|きる|ぎる|じる|ぜる|ちる|でる|にる|ひる|びる|へる|みる|りる|れた)/, "g");
-var verbTaFormRegex = new RegExp(/([\u4e00-\u9faf\u3400-\u4dbf])(?!は|が|に|を|の|な|と|や|も|へ|お|ご|で)([\u3040-\u309f]|)(た|だ)(?!ち|い|く|が|って)/, "g"); // past tense
+var verbTaFormRegex = new RegExp(/([\u4e00-\u9faf\u3400-\u4dbf])(?!は|が|に|を|の|な|と|や|も|へ|お|ご|で)([\u3040-\u309f]|)(た|だ)(?!ち|.+って|い|く|が)/, "g"); // past tense
 var zuFormRegex1 = new RegExp(/([\u4e00-\u9faf\u3400-\u4dbf])(ず)(?!かし)/, "g"); // Kanji unicode+ず but ignore 恥ずかしい
 var zuFormRegex2 = new RegExp(/(わ|ら|れ|な|ま|ば|か|さ|け|げ|べ|ぬ|せ)(ず)/, "g"); // verb stems+ず
 var kanjiAndKanjiRegex = new RegExp(/([\u4e00-\u9faf\u3400-\u4dbf])(と|や|い)([\u4e00-\u9faf\u3400-\u4dbf])/, "g"); // Kanji unicode+と/や+Kanji
@@ -234,7 +234,7 @@ async function processComparisonText() {
 	// REMOVE TERMS THAT MAY CONFUSE THE SEGMENTER
 	// Remove English characters
 	text = text.replace(alphaRegex, "_");
-	text = text.replace(numberRegex, "_$1$2$3$4_");
+	text = text.replace(numberRegex, "_$1");
 	// Remove newline characters
 	text = text.replace(newLineRegex, "_");
 	// Remove and separate certain ('unique') terms
@@ -347,8 +347,7 @@ async function processComparisonText() {
 			// RE-COMBINE auxillaries
 			if (kanji.test(segs[i])) {
 				// TODO: possibly change がっ to .endsWith("っ")
-				if (segs[i+1].startsWith("ら") || segs[i+1] === "がっ" || segs[i+1].length > 1 && segs[i+1].startsWith("た") // eg. 得られる, 横たわって
-				|| segs[i+1].length > 1 && segs[i+1].startsWith("て")) { // eg. 待てれば
+				if (segs[i+1].startsWith("ら") || segs[i+1] === "がっ" || segs[i+1].length > 1 && segs[i+1].startsWith("た")) { // eg. 得られる, 横たわって
 					if (_debug) console.log("RE-COMBINE Auxillaries 1: " + segs[i] +" & " + segs[i+1]);
 					segs[i] += segs[i+1];
 					segs.splice(i+1, 1);
@@ -358,12 +357,6 @@ async function processComparisonText() {
 				let prt = ["は", "が", "に", "を", "の", "な", "と", "や", "も", "へ", "お", "ご", "で", "よ", "ね"];
 				if (prt.indexOf(segs[i]) === -1 && prt.indexOf(segs[i+1]) === -1) {
 					if (_debug) console.log("RE-COMBINE Auxillaries 2: " + segs[i] +" & " + segs[i+1]);
-					segs[i] += segs[i+1];
-					segs.splice(i+1, 1);
-					if (i != 0) i--;
-				}
-				if (segs[i].endsWith("ん") && segs[i+1] === "で") {
-					if (_debug) console.log("RE-COMBINE Auxillaries 3: " + segs[i] +" & " + segs[i+1]);
 					segs[i] += segs[i+1];
 					segs.splice(i+1, 1);
 					if (i != 0) i--;
