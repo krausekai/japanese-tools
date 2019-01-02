@@ -191,7 +191,6 @@ function searchReading(term) {
 	displayMatchingKanji();
 }
 
-
 function searchMeaning(term) {
 	// reset displays
 	clearSelected();
