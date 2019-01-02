@@ -137,12 +137,28 @@ function populateGUI() {
 	radicalGrid.innerHTML = radicalGridHtml;
 }
 
-// SEARCH KANJI
-function searchKanji() {
+// decipher text type to search for meaning, reading, or kanji
+function search() {
 	var searchText = document.getElementById("searchText");
+	if (!searchText.value) return;
 
+	// Roman characters
+	if (/[A-Za-z]/.test(searchText.value[0])) {
+		searchMeaning(searchText.value);
+	}
+	// Kana characters
+	else if (/[\u3040-\u309f\u30a0-\u30ff]/.test(searchText.value[0])) {
+		searchReading(searchText.value);
+	}
+	// Kanji characters
+	else {
+		searchKanji(searchText.value[0]);
+	}
+}
+
+function searchKanji(term) {
 	// search for the kanji from the first character, and fail if not found
-	var kanjiObj = kanjis[searchText.value[0]];
+	var kanjiObj = kanjis[term];
 	if (!kanjiObj) {
 		return clearSelected();
 	}
@@ -157,12 +173,45 @@ function searchKanji() {
 	selectRadicals("override");
 }
 
+function searchReading(term) {
+	// reset displays
+	clearSelected();
+
+	// search for kanji matching English definition
+	for (var kanji in kanjis) {
+		let onyomi = kanjis[kanji].onyomi.split(",");
+		let kunyomi = kanjis[kanji].kunyomi.split(",");
+		let nanori = kanjis[kanji].nanori.split(",");
+		let readings = [...onyomi, ...kunyomi, ...nanori];
+
+		if (readings.indexOf(term) > -1) {
+			matchingKanjis.push(kanji);
+		}
+	}
+	displayMatchingKanji();
+}
+
+
+function searchMeaning(term) {
+	// reset displays
+	clearSelected();
+
+	// search for kanji matching English definition
+	for (var kanji in kanjis) {
+		if (kanjis[kanji].meaning.includes(term)) {
+			matchingKanjis.push(kanji);
+		}
+	}
+	displayMatchingKanji();
+}
+
 // GET KANJIS WHICH MATCH RADICAL SELECTION
 var selectedRadicals = [];
 var matchingKanjis = [];
 var matchingRadicals = [];
 function selectRadicals(e) {
 	if (e !== "override") {
+		// get the radical id from the pushed li button
 		var elementType = e.target.tagName;
 		var elementId = e.target.id.toString();
 		if (elementType.toLowerCase() !== "li" || !elementId) {
@@ -314,9 +363,9 @@ function focusKanji(e) {
 window.onload = function() {
 	document.getElementById("radicalSet").addEventListener("change", loadRadicalSet);
 	loadRadicalSet();
-	document.getElementById("searchText").addEventListener("focus", searchKanji);
-	document.getElementById("searchText").addEventListener("input", searchKanji);
-	//document.getElementById("searchBtn").addEventListener("click", searchKanji);
+	document.getElementById("searchText").addEventListener("focus", search);
+	document.getElementById("searchText").addEventListener("input", search);
+	//document.getElementById("searchBtn").addEventListener("click", search);
 	document.getElementById("clearSelected").addEventListener("click", clearSelected);
 	document.addEventListener("click", selectRadicals);
 	document.getElementById("foundKanji").addEventListener("click", focusKanji); // mouseover
