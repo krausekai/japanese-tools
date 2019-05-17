@@ -138,21 +138,22 @@ function populateGUI() {
 }
 
 // decipher text type to search for meaning, reading, or kanji
+var searchText = "";
 function search() {
-	var searchText = document.getElementById("searchText");
-	if (!searchText.value) return;
+	searchText = document.getElementById("searchText").value;
+	if (!searchText) return;
 
 	// Roman characters
-	if (/[A-Za-z]/.test(searchText.value[0])) {
-		searchMeaning(searchText.value);
+	if (/[A-Za-z]/.test(searchText[0]) && searchText.length > 2) {
+		searchMeaning(searchText);
 	}
 	// Kana characters
-	else if (/[\u3040-\u309f\u30a0-\u30ff]/.test(searchText.value[0])) {
-		searchReading(searchText.value);
+	else if (/[\u3040-\u309f\u30a0-\u30ff]/.test(searchText[0])) {
+		searchReading(searchText);
 	}
 	// Kanji characters
 	else {
-		searchKanji(searchText.value[0]);
+		searchKanji(searchText[0]);
 	}
 }
 
@@ -314,9 +315,11 @@ function displayMatchingKanji() {
 		foundKanji.innerText = "No results to display";
 	}
 	else {
-		//foundKanji.innerHTML = "<span class='kanjiResult'>" + matchingKanjis.join("</span><span class='kanjiResult'>") + "</span>";
 		var text = "";
 		for (var i = 0; i < matchingKanjis.length; i++) {
+			// highlight the currently searched Kanji
+			if (matchingKanjis[i] === searchText[0]) matchingKanjis[i] = "<b>" + matchingKanjis[i] + "</b>";
+			// create the output
 			text += "<li class='kanjiResult'>" + matchingKanjis[i] + "</li>";
 		}
 		foundKanji.innerHTML = "<ul>" + text + "</ul>";

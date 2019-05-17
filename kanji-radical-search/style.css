@@ -191,9 +191,10 @@ ul {
 	width: 45px;
 	height: 34px;
 }
-#foundKanji li:hover {
-	background-color: #efefef;
+#foundKanji li:hover, #radicalGrid li:hover {
+	border: 1px dashed #14447f !important;
 }
+
 #focusedKanji .radical {
 	font-size: 24px;
 }
