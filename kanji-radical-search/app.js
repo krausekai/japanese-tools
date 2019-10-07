@@ -6,12 +6,12 @@
 
 /* Return a unique array - Source: https://stackoverflow.com/a/9229821 */
 function uniq_fast(a) {
-	var seen = {};
-	var out = [];
-	var len = a.length;
-	var j = 0;
-	for(var i = 0; i < len; i++) {
-		var item = a[i];
+	let seen = {};
+	let out = [];
+	let len = a.length;
+	let j = 0;
+	for(let i = 0; i < len; i++) {
+		let item = a[i];
 		if(seen[item] !== 1) {
 		seen[item] = 1;
 		out[j++] = item;
@@ -21,7 +21,7 @@ function uniq_fast(a) {
 }
 
 // SET RADICAL SET
-var radical_set = "kangxi";
+let radical_set = "kangxi";
 function loadRadicalSet() {
 	radical_set = document.getElementById("radicalSet").value;
 	// reset loaded data
@@ -32,28 +32,29 @@ function loadRadicalSet() {
 }
 
 // helper function to find duplicate radicals, and translate them to the first found radical's ID
-var duplicates_index = {};
+let duplicates_index = {};
 function createDuplicateIndex() {
 	duplicates_index = {};
-	var ids = [];
-	var meanings = [];
-	for (var radical in radicals) {
+	let ids = [];
+	let meanings = [];
+	for (let radical in radicals) {
+		let index;
 		if (radical_set === "houhou") {
-			var index = meanings.indexOf(radicals[radical].houhou_radical_meaning);
+			index = meanings.indexOf(radicals[radical].houhou_radical_meaning);
 			if (index === -1) {
 				ids.push(radical);
 				meanings.push(radicals[radical].houhou_radical_meaning);
 			}
 		}
 		if (radical_set === "kangxi") {
-			var index = meanings.indexOf(radicals[radical].kangxi_radical_meaning);
+			index = meanings.indexOf(radicals[radical].kangxi_radical_meaning);
 			if (index === -1) {
 				ids.push(radical);
 				meanings.push(radicals[radical].kangxi_radical_meaning);
 			}
 		}
 		if (radical_set === "wanikani") {
-			var index = meanings.indexOf(radicals[radical].wk_radical_meaning);
+			index = meanings.indexOf(radicals[radical].wk_radical_meaning);
 			if (index === -1) {
 				ids.push(radical);
 				meanings.push(radicals[radical].wk_radical_meaning);
@@ -68,7 +69,7 @@ function createDuplicateIndex() {
 function purifyRadicals(arr) {
 	if (!arr) return arr;
 	// replace duplicate radical IDs with the original ID
-	for (var i = 0; i < arr.length; i++) {
+	for (let i = 0; i < arr.length; i++) {
 		if (duplicates_index[arr[i]]) {
 			arr[i] = duplicates_index[arr[i]];
 		}
@@ -76,7 +77,7 @@ function purifyRadicals(arr) {
 	// remove repeating IDs from arr
 	arr = uniq_fast(arr);
 	// remove IDs which are NULL
-	for (var i = 0; i < arr.length; i++) {
+	for (let i = 0; i < arr.length; i++) {
 		if (radical_set === "houhou") {
 			if (radicals[arr[i]] && !radicals[arr[i]].houhou_radical_meaning) {
 				arr.splice(i, 1);
@@ -98,9 +99,9 @@ function purifyRadicals(arr) {
 
 // POPULATE THE GUI
 function populateGUI() {
-	var radicalGrid = document.getElementById("radicalGrid").getElementsByTagName("ul")[0];
-	var radicalGridHtml = "";
-	for (var radical in radicals) {
+	let radicalGrid = document.getElementById("radicalGrid").getElementsByTagName("ul")[0];
+	let radicalGridHtml = "";
+	for (let radical in radicals) {
 		if (!duplicates_index[radical]) {
 			if (radical_set === "houhou") {
 				if (radicals[radical].houhou_radical && radicals[radical].houhou_radical_meaning) {
@@ -138,7 +139,7 @@ function populateGUI() {
 }
 
 // decipher text type to search for meaning, reading, or kanji
-var searchText = "";
+let searchText = "";
 function search() {
 	searchText = document.getElementById("searchText").value;
 	if (!searchText) return;
@@ -159,14 +160,14 @@ function search() {
 
 function searchKanji(term) {
 	// search for the kanji from the first character, and fail if not found
-	var kanjiObj = kanjis[term];
+	let kanjiObj = kanjis[term];
 	if (!kanjiObj) {
 		return clearSelected();
 	}
 
 	// get all radical IDs and purify them
-	var kanji_radical_ids = kanjiObj.radical_id.toString();
-	var kanji_radical_ids_arr = kanji_radical_ids.split(", ");
+	let kanji_radical_ids = kanjiObj.radical_id.toString();
+	let kanji_radical_ids_arr = kanji_radical_ids.split(", ");
 	kanji_radical_ids_arr = purifyRadicals(kanji_radical_ids_arr);
 
 	// assign as selection
@@ -179,14 +180,17 @@ function searchReading(term) {
 	clearSelected();
 
 	// search for kanji matching English definition
-	for (var kanji in kanjis) {
+	for (let kanji in kanjis) {
 		let onyomi = kanjis[kanji].onyomi.split(",");
 		let kunyomi = kanjis[kanji].kunyomi.split(",");
 		let nanori = kanjis[kanji].nanori.split(",");
 		let readings = [...onyomi, ...kunyomi, ...nanori];
 
-		if (readings.indexOf(term) > -1) {
-			matchingKanjis.push(kanji);
+		for (let i = 0; i < readings.length; i++) {
+			readings[i] = readings[i].replace(/\./gm, "");
+			if (readings[i].startsWith(term)) {
+				matchingKanjis.push(kanji);
+			}
 		}
 	}
 	displayMatchingKanji();
@@ -197,7 +201,7 @@ function searchMeaning(term) {
 	clearSelected();
 
 	// search for kanji matching English definition
-	for (var kanji in kanjis) {
+	for (let kanji in kanjis) {
 		if (kanjis[kanji].meaning.includes(term)) {
 			matchingKanjis.push(kanji);
 		}
@@ -206,20 +210,20 @@ function searchMeaning(term) {
 }
 
 // GET KANJIS WHICH MATCH RADICAL SELECTION
-var selectedRadicals = [];
-var matchingKanjis = [];
-var matchingRadicals = [];
+let selectedRadicals = [];
+let matchingKanjis = [];
+let matchingRadicals = [];
 function selectRadicals(e) {
 	if (e !== "override") {
 		// get the radical id from the pushed li button
-		var elementType = e.target.tagName;
-		var elementId = e.target.id.toString();
+		let elementType = e.target.tagName;
+		let elementId = e.target.id.toString();
 		if (elementType.toLowerCase() !== "li" || !elementId) {
 			return;
 		}
 
 		// remove selected radical if it is already selected
-		var index = selectedRadicals.indexOf(elementId);
+		let index = selectedRadicals.indexOf(elementId);
 		if (index > -1) {
 			selectedRadicals.splice(index, 1);
 		}
@@ -235,19 +239,19 @@ function selectRadicals(e) {
 	// search Kanji list, but only if there are selected radicals
 	// this prevents all radicals being pushed to matchingRadicals, and being incorrectly shown by displaySelectedRadicals()
 	if (selectedRadicals && selectedRadicals[0]) {
-		for (var kanji in kanjis) {
+		for (let kanji in kanjis) {
 			if (kanjis[kanji].radical_id) {
 				// get all radical IDs and purify them
-				var kanji_radical_ids = kanjis[kanji].radical_id.toString();
-				var kanji_radical_ids_arr = kanji_radical_ids.split(", ");
+				let kanji_radical_ids = kanjis[kanji].radical_id.toString();
+				let kanji_radical_ids_arr = kanji_radical_ids.split(", ");
 				kanji_radical_ids_arr = purifyRadicals(kanji_radical_ids_arr);
 
 				// whether to accept the current kanji as a match
-				var doMatch = true;
+				let doMatch = true;
 
 				// for-loop through every item in selected radicals and check that it exists in the kanji's radicals
-				for (var i = 0; i < selectedRadicals.length; i++) {
-					var index = kanji_radical_ids_arr.indexOf(selectedRadicals[i]);
+				for (let i = 0; i < selectedRadicals.length; i++) {
+					let index = kanji_radical_ids_arr.indexOf(selectedRadicals[i]);
 					// remove currently selected IDs from matched Kanji, so the remaining IDs can be highlighted for other possible radical combinations
 					if (index > -1) {
 						kanji_radical_ids_arr.splice(index, 1);
@@ -279,11 +283,11 @@ function selectRadicals(e) {
 
 function displaySelectedRadicals() {
 	matchingRadicals = uniq_fast(matchingRadicals);
-	var radicalGrid = document.getElementById("radicalGrid");
-	var radicals = radicalGrid.getElementsByTagName("li");
+	let radicalGrid = document.getElementById("radicalGrid");
+	let radicals = radicalGrid.getElementsByTagName("li");
 
-	for (var i = 0; i < radicals.length; i++) {
-		var radical = radicals[i].id;
+	for (let i = 0; i < radicals.length; i++) {
+		let radical = radicals[i].id;
 		// highlight selected
 		if (selectedRadicals && selectedRadicals.indexOf(radical) > -1) {
 			radicals[i].style.backgroundColor = "#71f77a";
@@ -299,8 +303,8 @@ function displaySelectedRadicals() {
 	}
 
 	// Display the count of selected and matched radicals
-	var radicalSelectedCount = document.getElementById("radicalSelectedCount");
-	var radicalMatchingCount = document.getElementById("radicalMatchingCount");
+	let radicalSelectedCount = document.getElementById("radicalSelectedCount");
+	let radicalMatchingCount = document.getElementById("radicalMatchingCount");
 	if (radicalSelectedCount && radicalMatchingCount) {
 		radicalSelectedCount.innerText = selectedRadicals.length;
 		radicalMatchingCount.innerText = matchingRadicals.length;
@@ -308,15 +312,15 @@ function displaySelectedRadicals() {
 }
 
 function displayMatchingKanji() {
-	var focusedKanji = document.getElementById("focusedKanji");
+	let focusedKanji = document.getElementById("focusedKanji");
 	focusedKanji.innerText = "No Kanji is selected";
-	var foundKanji = document.getElementById("foundKanji");
+	let foundKanji = document.getElementById("foundKanji");
 	if (matchingKanjis && !matchingKanjis[0]) {
 		foundKanji.innerText = "No results to display";
 	}
 	else {
-		var text = "";
-		for (var i = 0; i < matchingKanjis.length; i++) {
+		let text = "";
+		for (let i = 0; i < matchingKanjis.length; i++) {
 			// highlight the currently searched Kanji
 			if (matchingKanjis[i] === searchText[0]) matchingKanjis[i] = "<b>" + matchingKanjis[i] + "</b>";
 			// create the output
@@ -336,13 +340,13 @@ function clearSelected() {
 }
 
 function focusKanji(e) {
-	var focusedKanji = document.getElementById("focusedKanji");
-	var elementText = e.target.innerText;
-	var elementType = e.target.tagName;
+	let focusedKanji = document.getElementById("focusedKanji");
+	let elementText = e.target.innerText;
+	let elementType = e.target.tagName;
 	if (elementType.toLowerCase() !== "li" || !elementText || !kanjis[elementText]) return;
 
-	var kanji = kanjis[elementText];
-	var kanjiInfo = "";
+	let kanji = kanjis[elementText];
+	let kanjiInfo = "";
 
 	if (!kanji.meaning) kanji.meaning = "...";
 	if (!kanji.onyomi) kanji.onyomi = "...";
