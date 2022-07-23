@@ -61,11 +61,14 @@ header {
 	color: white;
 	padding: 12px;
 }
-#infobox {
+.infobox {
 	margin-top: 0.5em;
 	margin-bottom: -0.5em;
 	padding: 2px 20px;
 	max-width: 720px;
+}
+.bg-yellow {
+	background-color: lemonchiffon;
 }
 .form-display > .innerContainer {
 	border: 1px #e5e5e5 solid;
